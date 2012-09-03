@@ -1,0 +1,24 @@
+2010-12-09  Andreas Schwab  <schwab@redhat.com>
+
+	* elf/dl-object.c (_dl_new_object): Ignore origin of privileged
+	program.
+
+2010-10-18  Andreas Schwab  <schwab@redhat.com>
+
+	* elf/dl-open.c (dl_open_worker): Don't expand DST here, let
+	_dl_map_object do it.
+
+Index: glibc-2.12-2-gc4ccff1/elf/dl-object.c
+===================================================================
+--- glibc-2.12-2-gc4ccff1.orig/elf/dl-object.c
++++ glibc-2.12-2-gc4ccff1/elf/dl-object.c
+@@ -214,6 +214,9 @@ _dl_new_object (char *realname, const ch
+     out:
+       new->l_origin = origin;
+     }
++  else if (INTUSE(__libc_enable_secure) && type == lt_executable)
++    /* The origin of a privileged program cannot be trusted.  */
++    new->l_origin = (char *) -1;
+ 
+   return new;
+ }
