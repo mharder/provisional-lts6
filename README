@@ -1,0 +1,7 @@
+The purpose of the provisional-lts6 overlay is to provide a place
+for portage ebuilds that support the lts6 (Long Term Stable 6.x)
+overlay, but for various reasons are not suitable for the lts6
+overlay.
+
+Typically, these ebuilds provide workaround solutions for problems
+that will need to be sorted out eventually.
